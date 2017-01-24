@@ -28,6 +28,7 @@ abstract class CordovaHttp {
     private JSONObject params;
     private String serializerName;
     private JSONObject headers;
+    private Boolean followRedirects;
     private CallbackContext callbackContext;
 
     public CordovaHttp(String urlString, JSONObject params, JSONObject headers, CallbackContext callbackContext) {
@@ -44,6 +45,15 @@ abstract class CordovaHttp {
         this.serializerName = serializerName;
         this.headers = headers;
         this.callbackContext = callbackContext;
+    }
+
+    public CordovaHttp(String urlString, JSONObject params, String serializerName, JSONObject headers, Boolean followRedirects, CallbackContext callbackContext) {
+        this.urlString = urlString;
+        this.params = params;
+        this.serializerName = serializerName;
+        this.headers = headers;
+        this.callbackContext = callbackContext;
+        this.followRedirects = followRedirects;
     }
 
     public static void enableSSLPinning(boolean enable) {
@@ -74,6 +84,10 @@ abstract class CordovaHttp {
 
     protected String getSerializerName() {
         return this.serializerName;
+    }
+
+    protected Boolean getFollowRedirects() {
+        return this.followRedirects;
     }
 
     protected HashMap<String, Object> getParamsMap() throws JSONException {

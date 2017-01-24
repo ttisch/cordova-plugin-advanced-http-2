@@ -70,6 +70,7 @@ var http = {
     headers: {},
     dataSerializer: 'urlencoded',
     sslPinning: false,
+    followRedirects: true,
     getBasicAuthHeader: function (username, password) {
         return {'Authorization': 'Basic ' + b64EncodeUnicode(username + ':' + password)};
     },
@@ -81,6 +82,9 @@ var http = {
     },
     setDataSerializer: function (serializer) {
         this.dataSerializer = checkSerializer(serializer);
+    },
+    setFollowRedirects: function (followRedirects) {
+        this.followRedirects = followRedirects;
     },
     clearCookies: function () {
         return cookieHandler.clearCookies();
@@ -98,13 +102,13 @@ var http = {
         data = data || {};
         headers = headers || {};
         headers = mergeHeaders(this.headers, headers);
-        return exec(success, failure, 'CordovaHttpPlugin', 'post', [url, data, this.dataSerializer, headers]);
+        return exec(success, failure, 'CordovaHttpPlugin', 'post', [url, data, this.dataSerializer, this.followRedirects, headers]);
     },
     get: function (url, params, headers, success, failure) {
         params = params || {};
         headers = headers || {};
         headers = mergeHeaders(this.headers, headers);
-        return exec(success, failure, 'CordovaHttpPlugin', 'get', [url, params, headers]);
+        return exec(success, failure, 'CordovaHttpPlugin', 'get', [url, params, this.followRedirects, headers]);
     },
     head: function (url, params, headers, success, failure) {
         headers = mergeHeaders(this.headers, headers);

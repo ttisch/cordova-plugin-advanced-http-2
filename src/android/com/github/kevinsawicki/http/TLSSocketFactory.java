@@ -1,5 +1,6 @@
 package com.github.kevinsawicki.http;
 
+import java.utils.*;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.Socket;

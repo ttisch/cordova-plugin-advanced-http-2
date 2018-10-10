@@ -39,7 +39,7 @@ public class CordovaHttpPlugin extends CordovaPlugin {
             JSONObject params = args.getJSONObject(1);
             String serializerName = args.getString(2);
             JSONObject headers = args.getJSONObject(3);
-            CordovaHttpPost post = new CordovaHttpPost(urlString, params, serializerName, headers, callbackContext);
+            CordovaHttpPost post = new CordovaHttpPost(urlString, params, serializerName, false, headers, callbackContext);
 
             cordova.getThreadPool().execute(post);
         } else if (action.equals("get")) {
